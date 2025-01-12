@@ -21,7 +21,7 @@ public class Img extends InterfacciaGenerale implements Luminosita {
     }
 
     public void mostra(){
-        System.out.println(titolo + " " + "!".repeat(luminosita));
+        System.out.println(titolo + " " + "*".repeat(luminosita));
     }
 
     @Override
