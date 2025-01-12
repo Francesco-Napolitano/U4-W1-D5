@@ -59,8 +59,8 @@ public class Player {
             }
 
         }
-        System.out.println("\n Scegli cosa fare adesso: ");
-        System.out.println("1-Esegui un elemento \n 2-Modifica un elemento (volume o luminosità) \n 3-Esci");
+        System.out.println("\n Scegli cosa fare adesso:");
+        System.out.println(" 1-Esegui un elemento \n 2-Modifica un elemento (volume o luminosità) \n 3-Esci");
         int scelta = myscanner.nextInt();
         boolean esci = false;
         do {
@@ -119,7 +119,10 @@ public class Player {
                                             System.out.println("Volume non disponibile per questo elemento.");
                                         }
                                     }
-                                    default -> System.out.println("Scelta non valida");
+                                    default -> {
+                                        System.out.println("Scelta non valida");
+                                        modificaScelta = myscanner.nextInt();
+                                    }
                                 }
                             }
 
@@ -133,6 +136,7 @@ public class Player {
                 }
                 case 3 ->{
                     esci = true;
+                    System.out.println("Arrivederci!");
                 }
                 default -> System.out.println("Scelta sbagliata");
             }
