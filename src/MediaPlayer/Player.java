@@ -1,5 +1,7 @@
 package MediaPlayer;
 
+import Interfacce.Luminosita;
+import Interfacce.Volume;
 import Multimedia.Audio;
 import Multimedia.Img;
 import Multimedia.InterfacciaGenerale;
@@ -58,31 +60,83 @@ public class Player {
 
         }
         System.out.println("\n Scegli cosa fare adesso: ");
-        System.out.println("1-Esegui un elemento \n 2-Modifica un elemento (solo volume o luminosità per video/audio \n 3-Esci");
+        System.out.println("1-Esegui un elemento \n 2-Modifica un elemento (volume o luminosità) \n 3-Esci");
         int scelta = myscanner.nextInt();
-        int sceltaPlay = 0;
+        boolean esci = false;
         do {
             switch (scelta) {
                 case 1 -> {
                     System.out.println("Quale elemento vuoi eseguire? Scegli da 1 a 5, 0 per uscire");
-                    sceltaPlay = myscanner.nextInt();
+                    int sceltaPlay = myscanner.nextInt();
                     if (sceltaPlay > 0 && sceltaPlay < player.length) {
                         player[sceltaPlay - 1].play();
+                    } else if (sceltaPlay!= 0){
+                        System.out.println("Scelta non valida, selezionare di nuovo.");
                     } else {
-                        System.out.println("Scelta non valida, selezionare di nuovo: ");
+                        esci = true;
+                        System.out.println("Sistema terminato");
                     }
                 }
                 case 2 -> {
-                    System.out.println("Scegli l'elemento da modificare: (1-5)");
+                    System.out.println("Scegli l'elemento da modificare: (1-5) esci con 0");
                     int i = myscanner.nextInt();
                     if (i > 0 && i < player.length){
-                        InterfacciaGenerale elemento = player[i];
+                        InterfacciaGenerale elemento = player[i-1];
+                            boolean modifica = true;
+                            while (modifica) {
+                                System.out.println("Seleziona i seguenti numeri per modificare: \n  1-Luminosità su | 2-Luminositù giù | 3-Volume su | 4-Volume giù | 0-Esci");
+                                int modificaScelta = myscanner.nextInt();
+                                switch (modificaScelta){
+                                    case 0 -> {
+                                        modifica = false;
+                                    }
+                                    case 1 -> {
+                                        if (elemento instanceof Luminosita){
+                                            ((Luminosita) elemento).aumentaLuminosita();
+                                            System.out.println("Comando eseguito! ");
+                                        } else {
+                                            System.out.println("Luminosità non disponibile per questo elemento.");
+                                        }
+                                    } case 2 -> {
+                                        if (elemento instanceof Luminosita){
+                                            ((Luminosita) elemento).diminuisciLuminosita();
+                                            System.out.println("Comando eseguito! ");
+                                        } else {
+                                            System.out.println("Luminosità non disponibile per questo elemento.");
+                                        }
+                                    }case 3 -> {
+                                        if (elemento instanceof Volume){
+                                            ((Volume) elemento).alzaVolume();
+                                            System.out.println("Comando eseguito! ");
+                                        } else {
+                                            System.out.println("Volume non disponibile per questo elemento.");
+                                        }
+                                    }case 4 -> {
+                                        if (elemento instanceof Volume){
+                                            ((Volume) elemento).abbassaVolume();
+                                            System.out.println("Comando eseguito! ");
+                                        } else {
+                                            System.out.println("Volume non disponibile per questo elemento.");
+                                        }
+                                    }
+                                    default -> System.out.println("Scelta non valida");
+                                }
+                            }
+
+
+                    } else if (i==0){
+                        esci = true;
+                        System.out.println("Chiusura del programma.");
+                    } else {
+                        System.out.println("L'elemento non è valido");
                     }
                 }
-
+                case 3 ->{
+                    esci = true;
+                }
+                default -> System.out.println("Scelta sbagliata");
             }
-
-        }while (sceltaPlay != 0) ;
+        }while (!esci ) ;
         myscanner.close();
     }
 }
