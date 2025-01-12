@@ -1,11 +1,12 @@
 package Multimedia;
 
 public abstract class InterfacciaGenerale {
-    protected String title ;
+    protected String titolo ;
 
-    public InterfacciaGenerale(String t){
-        this.title = t;
+    public InterfacciaGenerale(String titolo){
+        this.titolo = titolo;
     }
 
     public abstract void play();
+
 }
